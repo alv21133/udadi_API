@@ -18,7 +18,7 @@ module.exports = {
   */
   origin: function (currentOrigin) {
     return currentOrigin === 'https://udadifish.com:3333'
-  }
+  },
 
 
   /*
