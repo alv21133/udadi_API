@@ -17,7 +17,7 @@ module.exports = {
   |
   */
   origin: function (currentOrigin) {
-    return currentOrigin === 'https://udadifish.com:3333'
+    return currentOrigin === 'http://localhost:8080'
   },
 
 
