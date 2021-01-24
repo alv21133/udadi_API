@@ -20,5 +20,8 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
-Route.post('/login', 'UserController.login')
-Route.post('/register', 'UserController.register')
+Route.post('/api/beta/login', 'UserController.login')
+Route.post('/api/beta/register', 'UserController.register')
+Route.post('/api/beta/check-user', 'UserController.checkUser')
+Route.post('/api/beta/create-history', 'UserController.loginReport')
+Route.post('/api/beta/logout', 'UserController.logout')
