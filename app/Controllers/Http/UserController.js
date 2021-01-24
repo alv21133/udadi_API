@@ -12,21 +12,28 @@ class UserController {
             email: 'required|email',
             password: 'required'
         };
+        const { email, password, pageFrom } = request.only(['email', 'password', 'pageFrom']);
 
-        const { email, password } = request.only(['email', 'password']);
+        // validation redirection
+        const users = await Database.from('users').where({ email: email })
+        const databaseStatus = users[0] !== undefined ? users[0].status : false;
+        if (pageFrom === databaseStatus) {
 
-        await auth.attempt(email, password)
-        const validation = await validate({ email, password }, rules);
-        if (!validation.fails()) {
-            try {
-                return await auth.attempt(email, password)
 
-            } catch (err) {
-                console.log(err);
-                response.status(401).send({ error: 'Email dan password tidak valid' });
+            await auth.attempt(email, password)
+            const validation = await validate({ email, password }, rules);
+            if (!validation.fails()) {
+                try {
+                    return await auth.attempt(email, password)
+
+                } catch (err) {
+                    response.status(401).send({ error: 'Email dan password tidak valid' });
+                }
+            } else {
+                response.status(401).send(validation.messages());
             }
         } else {
-            response.status(401).send(validation.messages());
+            response.status(200).send({ error: 'status tidak cocok' })
         }
     }
 
@@ -92,7 +99,7 @@ class UserController {
             try {
                 return response.send({
                     status: 'Token verified', id: user.id,
-                    name: user.username, email: user.email,
+                    name: use, email: user.email,
                     phone: user.phone, company: user.company,
                     userType: user.status
                 })
