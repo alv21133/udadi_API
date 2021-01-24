@@ -39,19 +39,26 @@ class UserController {
             phone: 'required',
         };
 
-        const { email, username, password, company, phone } = request.only([
+        const { email, username, password, company, phone, status } = request.only([
             'email',
             'username',
             'password',
             'company',
-            'phone'
+            'phone',
+            'status'
         ]);
 
-        const validation = await validate({ email, username, password, company, phone }, rules);
+        const validation = await validate({
+            email, username, password,
+            company, phone, status
+        }, rules);
 
         if (!validation.fails()) {
             try {
-                const user = await User.create({ email, username, password, company, phone });
+                const user = await User.create({
+                    email, username, password,
+                    company, phone, status
+                });
 
                 //create History
                 this.createActionHistory(email, 'R')
@@ -83,7 +90,12 @@ class UserController {
         const user = await auth.getUser()
         if (isTokenValid) {
             try {
-                return response.send({ status: 'Token verified', id: user.id, name: user.username, email: user.email, phone: user.phone, company: user.company })
+                return response.send({
+                    status: 'Token verified', id: user.id,
+                    name: user.username, email: user.email,
+                    phone: user.phone, company: user.company,
+                    userType: user.status
+                })
 
             } catch (error) {
                 response.send('You are not logged in')
