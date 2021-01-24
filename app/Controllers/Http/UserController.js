@@ -17,6 +17,8 @@ class UserController {
         // validation redirection
         const users = await Database.from('users').where({ email: email })
         const databaseStatus = users[0] !== undefined ? users[0].status : false;
+        console.log(pageFrom);
+        console.log(databaseStatus);
         if (pageFrom === databaseStatus) {
 
 
