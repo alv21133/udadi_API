@@ -5,8 +5,8 @@ const fs = require('fs')
 
 // Certificate
 const options = {
-    key: fs.readFileSync(path.join(__dirname, '/etc/ssl/private/udadifish.com.key')),
-    cert: fs.readFileSync(path.join(__dirname, '/etc/ssl/private/bundle.crt'))
+    key: fs.readFileSync(path.join(__dirname, '/home/fishdev/udadifish.com.key')),
+    cert: fs.readFileSync(path.join(__dirname, '/home/fishdev/bundle.crt'))
 }
 
 new Ignitor(require('@adonisjs/fold'))
