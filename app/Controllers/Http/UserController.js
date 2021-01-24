@@ -32,7 +32,6 @@ class UserController {
                 response.status(401).send(validation.messages());
             }
         } else {
-            console.log('Page Not valid');
             response.status(401).send({ error: 'status tidak cocok' })
         }
     }
