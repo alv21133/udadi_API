@@ -19,8 +19,10 @@ class UserController {
         const databaseStatus = users[0] !== undefined ? users[0].status : false;
         console.log(pageFrom);
         console.log(databaseStatus);
+        console.log(pageFrom === databaseStatus);
         if (pageFrom === databaseStatus) {
 
+            console.log('Page Valid');
 
             await auth.attempt(email, password)
             const validation = await validate({ email, password }, rules);
@@ -35,6 +37,7 @@ class UserController {
                 response.status(401).send(validation.messages());
             }
         } else {
+            console.log('Page Not valid');
             response.status(200).send({ error: 'status tidak cocok' })
         }
     }
